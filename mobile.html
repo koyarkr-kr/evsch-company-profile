@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVSCH · ㈜이브이쉬 회사소개서</title>
+<style>
+  :root{
+    --g1:#6a11cb; --g2:#2575fc; --g3:#ff5e62; --g4:#ff9966;
+    --ink:#0d1030; --muted:rgba(255,255,255,.74); --gold:#ffd166; --mint:#8affd6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+    color:#fff;background:var(--ink);overflow-x:hidden;
+  }
+
+  /* ===== 언어 전환 ===== */
+  [data-lang="ko"] .lang-zh{display:none}
+  [data-lang="zh"] .lang-ko{display:none}
+
+  /* ===== 배경 ===== */
+  .bg{position:fixed;inset:0;z-index:0;
+    background:linear-gradient(125deg,var(--g1),var(--g2),var(--g3),var(--g4));
+    background-size:300% 300%;animation:flow 18s ease infinite;}
+  @keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .bg::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 20% 18%,rgba(255,255,255,.18),transparent 42%),
+               radial-gradient(circle at 82% 75%,rgba(0,0,0,.28),transparent 46%);}
+
+  /* ===== 고정 헤더 ===== */
+  .header{position:fixed;top:0;left:0;right:0;z-index:10;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(13,16,48,.5);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.12)}
+  .logo{font-weight:800;font-size:14px;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+  .logo::before{content:"";width:22px;height:4px;background:var(--gold);display:inline-block;border-radius:2px}
+  .langsw{display:flex;gap:6px}
+  .langsw button{padding:5px 11px;border:1px solid rgba(255,255,255,.42);border-radius:999px;
+    background:rgba(255,255,255,.1);color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;
+    cursor:pointer;transition:.2s}
+  .langsw button.on{background:#fff;color:var(--ink);border-color:#fff}
+
+  /* ===== 스크롤 컨테이너 ===== */
+  main{position:relative;z-index:1;padding-top:60px}
+
+  /* ===== 섹션 공통 ===== */
+  section{padding:48px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  section:last-child{border-bottom:none}
+
+  /* ===== 타이포 ===== */
+  .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin-bottom:14px;
+    display:inline-block;padding:6px 14px;border:1px solid rgba(255,255,255,.4);
+    border-radius:999px;backdrop-filter:blur(4px)}
+  h1{font-size:clamp(32px,8vw,48px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+  h2{font-size:clamp(24px,6.5vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+  .lead{font-size:15px;color:var(--muted);line-height:1.7;margin-top:12px}
+  .accent{color:var(--gold)}
+  .mint{color:var(--mint)}
+
+  /* ===== 표지 ===== */
+  .cover{min-height:calc(100vh - 60px);display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;padding:48px 24px}
+  .cover h1{font-size:clamp(30px,8vw,44px)}
+
+  /* EVSCH 약자 칩 */
+  .acronym{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;justify-content:center}
+  .acronym > span{padding:8px 12px;border:1px solid rgba(255,255,255,.32);
+    background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border-radius:8px;
+    font-size:12px;font-weight:700}
+  .acronym b{color:var(--gold);font-size:1.15em;margin-right:4px}
+
+  /* ===== 통계 그리드 ===== */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .metric{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);
+    border-radius:18px;padding:20px 16px;backdrop-filter:blur(8px);
+    display:flex;flex-direction:column;justify-content:center;min-height:100px}
+  .metric strong{font-size:clamp(22px,6vw,36px);line-height:1;font-weight:800}
+  .metric strong.sm{font-size:clamp(16px,4vw,22px);white-space:nowrap}
+  .metric > span{display:block;margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5;font-weight:600}
+
+  /* ===== 불릿 리스트 ===== */
+  .list{margin-top:20px;display:grid;gap:12px;font-size:15px;line-height:1.65;font-weight:600}
+  .list div{display:grid;grid-template-columns:12px 1fr;gap:12px;align-items:start}
+  .list div::before{content:"";width:8px;height:8px;margin-top:.55em;border-radius:50%;
+    background:var(--gold);box-shadow:0 0 0 3px rgba(255,209,102,.25)}
+
+  /* ===== 이미지 프레임 ===== */
+  .frame{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08);backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(0,0,0,.3);margin-top:20px}
+  .frame img{width:100%;display:block;object-fit:cover}
+
+  /* ===== 타임라인 ===== */
+  .timeline{margin-top:20px;display:grid;gap:0;border-left:2px solid rgba(255,255,255,.4);padding-left:20px}
+  .timeline article{padding:0 0 24px 0;position:relative}
+  .timeline article:last-child{padding-bottom:0}
+  .timeline article::before{content:"";position:absolute;top:4px;left:-27px;width:12px;height:12px;border-radius:50%;
+    background:var(--gold);box-shadow:0 0 0 3px rgba(255,209,102,.25)}
+  .timeline strong{display:block;font-size:20px;color:var(--gold);margin-bottom:6px;font-weight:800}
+  .timeline span{color:var(--muted);line-height:1.55;font-weight:500;font-size:14px}
+
+  /* ===== 설비 사진 그리드 ===== */
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .photo-grid .frame{margin-top:0;aspect-ratio:4/3}
+  .photo-grid .frame img{height:100%;object-fit:cover}
+
+  /* ===== 제품 패널 ===== */
+  .panels{display:grid;gap:16px;margin-top:20px}
+  .panel{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);
+    border-radius:18px;padding:20px;backdrop-filter:blur(8px)}
+  .panel b{display:block;font-size:17px;font-weight:700;margin-bottom:8px}
+  .panel .ptext{color:var(--muted);font-size:14px;line-height:1.65}
+  .panel img{width:100%;border-radius:12px;margin-top:14px;border:1px solid rgba(255,255,255,.2)}
+
+  /* ===== 차종 타일 ===== */
+  .car-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .logo-tile{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);border-radius:16px;
+    padding:14px 14px 10px;backdrop-filter:blur(8px);text-align:center}
+  .logo-tile img{width:100%;aspect-ratio:16/9;object-fit:contain;background:rgba(255,255,255,.92);
+    padding:6px;border-radius:10px}
+  .logo-tile b{display:block;margin-top:8px;font-size:14px}
+
+  /* ===== 인증 ===== */
+  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .cert-grid figure{margin:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+    border-radius:16px;overflow:hidden;backdrop-filter:blur(8px)}
+  .cert-grid img{width:100%;aspect-ratio:3/4;object-fit:contain;padding:14px;background:rgba(255,255,255,.9);display:block}
+  .cert-grid figcaption{padding:12px 14px;font-weight:700;font-size:13px;line-height:1.4;
+    border-top:1px solid rgba(255,255,255,.2)}
+
+  /* ===== Thank You ===== */
+  .thankyou{text-align:center;min-height:60vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;padding:60px 24px}
+  .thankyou h1{font-size:clamp(28px,8vw,42px)}
+  .address{margin-top:24px;padding:16px 20px;border:1px solid rgba(255,255,255,.25);
+    border-radius:14px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);
+    font-size:13px;color:var(--muted);line-height:1.8;font-weight:600}
+
+  /* ===== 등장 애니메이션 ===== */
+  .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- 고정 헤더 -->
+<header class="header">
+  <div class="logo">EVSCH · ㈜이브이쉬</div>
+  <div class="langsw">
+    <button id="btn-ko" class="on" onclick="setLang('ko')">KO</button>
+    <button id="btn-zh" onclick="setLang('zh')">中文</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. 표지 -->
+  <section class="cover">
+    <div class="kicker fade-up">Company Profile · Automotive Interior Materials</div>
+    <h1 class="fade-up"><span class="lang-ko">친환경 자동차 내장재의<br>전문 제조 파트너</span><span class="lang-zh">环保汽车内饰材料的<br>专业制造伙伴</span></h1>
+    <p class="lead fade-up"><span class="lang-ko">㈜이브이쉬는 트렁크 내장재와 부직포 기반 자동차 내장부품을 생산하는 전문 기업입니다. 고객사 대응력, 인증 기반 품질체계, 재활용 가능 소재 경쟁력을 바탕으로 안정적인 제조 서비스를 제공합니다.</span><span class="lang-zh">EVSCH 是一家专业生产后备厢内饰材料及无纺布基汽车内饰部件的企业。凭借客户响应能力、基于认证的质量体系以及可回收材料竞争力，提供稳定可靠的制造服务。</span></p>
+    <div class="acronym fade-up">
+      <span><b>E</b>lastic</span><span><b>V</b>igorous</span><span><b>S</b>peedy</span><span><b>Ch</b>emical &amp; Materials</span>
+    </div>
+    <div class="grid fade-up" style="max-width:360px;width:100%">
+      <div class="metric"><strong>2011</strong><span><span class="lang-ko">회사 설립</span><span class="lang-zh">公司成立</span></span></div>
+      <div class="metric"><strong class="num" data-count="26" data-suffix-ko="명" data-suffix-zh="名">0</strong><span><span class="lang-ko">현재 임직원</span><span class="lang-zh">现有员工</span></span></div>
+      <div class="metric"><strong class="num" data-count="600" data-suffix-ko="만㎡" data-suffix-zh="万㎡">0</strong><span><span class="lang-ko">연간 압출 생산능력</span><span class="lang-zh">年挤出产能</span></span></div>
+      <div class="metric"><strong>GRS</strong><span><span class="lang-ko">국제재생 표준 인증</span><span class="lang-zh">国际再生标准认证</span></span></div>
+    </div>
+  </section>
+
+  <!-- 2. Why EVSCH -->
+  <section>
+    <div class="kicker fade-up">Why EVSCH</div>
+    <h2 class="fade-up"><span class="lang-ko">완성차 공급망에 맞춘 <span class="accent">품질·납기·원가</span> 실행력</span><span class="lang-zh">契合整车供应链的 <span class="accent">品质·交期·成本</span> 执行力</span></h2>
+    <p class="lead fade-up"><span class="lang-ko">EVSCH의 경쟁력은 이미 구축된 생산 기반과 고객 대응 체계에서 출발합니다.</span><span class="lang-zh">EVSCH的竞争力源于已建成的生产基础与客户响应体系。</span></p>
+    <div class="list fade-up">
+      <div><span class="lang-ko">현대·기아 주요 차종 납품 이력 기반의 사업 신뢰도</span><span class="lang-zh">基于现代·起亚主要车型供货业绩的业务信赖度</span></div>
+      <div><span class="lang-ko">IATF 16949, ISO 14001, GRS로 검증된 품질·환경 관리 체계</span><span class="lang-zh">通过 IATF 16949、ISO 14001、GRS 验证的质量·环境管理体系</span></div>
+      <div><span class="lang-ko">접착제 미사용, 경량, 흡음, 재활용 가능 소재를 활용한 제품 차별성</span><span class="lang-zh">采用无胶粘剂、轻量、吸音、可回收材料的产品差异化</span></div>
+    </div>
+    <div class="frame fade-up"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/image2.jpeg" alt="EVSCH" loading="lazy"></div>
+  </section>
+
+  <!-- 3. 회사 개요 -->
+  <section>
+    <div class="kicker fade-up">Company Overview</div>
+    <h2 class="fade-up"><span class="lang-ko">충북 진천 생산거점에서<br>자동차 내장재를 전문 생산</span><span class="lang-zh">在忠北镇川生产基地<br>专业生产汽车内饰材料</span></h2>
+    <div class="grid fade-up">
+      <div class="metric"><strong><span class="lang-ko">조승회</span><span class="lang-zh" style="font-size:16px">Cho Seung Hwe</span></strong><span><span class="lang-ko">대표이사</span><span class="lang-zh">董事长</span></span></div>
+      <div class="metric"><strong><span class="lang-ko">진천</span><span class="lang-zh">镇川</span></strong><span><span class="lang-ko">충북 진천군 백곡면</span><span class="lang-zh">忠清北道镇川郡</span></span></div>
+      <div class="metric"><strong class="num" data-count="7" data-suffix-ko="개" data-suffix-zh="条">0</strong><span><span class="lang-ko">생산 라인</span><span class="lang-zh">生产线</span></span></div>
+      <div class="metric"><strong class="num" data-count="4" data-suffix-ko="건" data-suffix-zh="项">0</strong><span>ISO·IATF·GRS·<span class="lang-ko">특허</span><span class="lang-zh">专利</span></span></div>
+    </div>
+    <div class="timeline fade-up" style="margin-top:28px">
+      <article><strong>2011</strong><span><span class="lang-ko">㈜이브이쉬 설립 / 충남 천안에서 사업 개시</span><span class="lang-zh">EVSCH 成立 / 于忠南天安开展业务</span></span></article>
+      <article><strong>2014</strong><span><span class="lang-ko">진천 공장 준공 및 이전 / 분섬·압출 라인 증설</span><span class="lang-zh">镇川工厂竣工并迁址 / 增设分纤·挤出生产线</span></span></article>
+      <article><strong>600<span class="lang-ko">만㎡</span><span class="lang-zh">万㎡</span></strong><span><span class="lang-ko">연간 압출 생산능력 확보</span><span class="lang-zh">具备年挤出产能</span></span></article>
+      <article><strong>2024</strong><span><span class="lang-ko">GRS 인증 및 차량용 트렁크 내장재 특허 취득</span><span class="lang-zh">取得 GRS 认证及车用后备厢内饰材料专利</span></span></article>
+    </div>
+  </section>
+
+  <!-- 4. 제조 시스템 -->
+  <section>
+    <div class="kicker fade-up">Manufacturing System</div>
+    <h2 class="fade-up"><span class="lang-ko">압출·부직포·프레스 공정을<br><span class="mint">하나의 생산체계</span>로 연결</span><span class="lang-zh">将挤出·无纺布·冲压工艺<br><span class="mint">整合为一体化</span>生产体系</span></h2>
+    <p class="lead fade-up"><span class="lang-ko">압출 3개 라인은 각 2,000,000㎡/yr 생산능력을 보유하며, 부직포와 프레스 공정은 내장재 성형 및 후가공 대응력을 강화합니다.</span><span class="lang-zh">3 条挤出生产线各具备 2,000,000㎡/yr 产能，无纺布与冲压工艺进一步强化了内饰材料的成型及后加工能力。</span></p>
+    <div class="grid fade-up">
+      <div class="metric"><strong class="num" data-count="3">0</strong><span>Extruder Lines</span></div>
+      <div class="metric"><strong class="num" data-count="1">0</strong><span>Non-woven Line</span></div>
+      <div class="metric"><strong class="num" data-count="3">0</strong><span>Press Lines</span></div>
+      <div class="metric"><strong class="sm">150~300t</strong><span><span class="lang-ko">프레스 성형 능력</span><span class="lang-zh">各冲压线成型能力</span></span></div>
+    </div>
+    <div class="photo-grid fade-up">
+      <div class="frame"><img src="assets/facility1.png" alt="설비1" loading="lazy"></div>
+      <div class="frame"><img src="assets/facility2.png" alt="설비2" loading="lazy"></div>
+      <div class="frame"><img src="assets/facility3.png" alt="설비3" loading="lazy"></div>
+      <div class="frame"><img src="assets/facility4.png" alt="설비4" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- 5. 제품 -->
+  <section>
+    <div class="kicker fade-up">Product Edge</div>
+    <h2 class="fade-up"><span class="lang-ko">트렁크 내장재에 최적화된<br>경량·흡음·친환경 소재</span><span class="lang-zh">针对后备厢内饰优化的<br>轻量·吸音·环保材料</span></h2>
+    <div class="panels">
+      <div class="panel fade-up"><b><span class="lang-ko">소재 구조</span><span class="lang-zh">材料结构</span></b><div class="ptext"><span class="lang-ko">표면 부직포 + PP보드(중심 코어) + 이면 부직포의 3층 접합 구조로, 외관·강성·절연·마감 특성을 제공합니다.</span><span class="lang-zh">由表面无纺布 + PP板（中心芯材）+ 里面无纺布构成的三层贴合结构。</span></div><img src="assets/pp_layer.png" alt="PP Board Layer" loading="lazy"></div>
+      <div class="panel fade-up"><b><span class="lang-ko">공정 장점</span><span class="lang-zh">工艺优势</span></b><div class="ptext"><span class="lang-ko">섬유 특성을 활용한 열 용융 접착 방식으로 별도 접착제 없이 성형 Process가 쉽고 간편합니다.</span><span class="lang-zh">利用纤维特性的热熔粘合方式，无需额外胶粘剂，成型工艺简便。</span></div><img class="lang-ko" src="assets/process_extruder.png" alt="압출 합지 설비" loading="lazy"><img class="lang-zh" src="assets/process_extruder_zh.png" alt="挤出复合设备" loading="lazy"></div>
+      <div class="panel fade-up"><b><span class="lang-ko">제품 가치</span><span class="lang-zh">产品价值</span></b><div class="ptext"><span class="lang-ko">흡음·내열·강도 기능을 확보하면서 접착제 미사용으로 무취·재활용 가능 제품 구현이 가능합니다.</span><span class="lang-zh">在确保吸音·耐热·强度的同时，可实现无异味·可回收产品。</span></div><img src="assets/product_application.png" alt="Trunk interior" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- 6. 납품 차종 -->
+  <section>
+    <div class="kicker fade-up">Customer Coverage</div>
+    <h2 class="fade-up"><span class="lang-ko">현대·기아 주요 차종으로<br>검증된 납품 기반</span><span class="lang-zh">以现代·起亚主要车型<br>验证的供货基础</span></h2>
+    <p class="lead fade-up"><span class="lang-ko">GV80, G80, 그랜저, 쏘나타, PV5, K4(멕시코) 등 다양한 플랫폼에 대응합니다.</span><span class="lang-zh">对应 GV80、G80、Grandeur、Sonata、PV5、K4（墨西哥）等多种平台。</span></p>
+    <div class="car-grid fade-up">
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_gv80.jpg" alt="GV80" loading="lazy"><b>GV80</b></div>
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_g80.jpg" alt="G80" loading="lazy"><b>G80</b></div>
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_grandeur.jpg" alt="Grandeur" loading="lazy"><b><span class="lang-ko">그랜저</span><span class="lang-zh">Grandeur</span></b></div>
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_sonata.jpg" alt="Sonata" loading="lazy"><b><span class="lang-ko">쏘나타</span><span class="lang-zh">Sonata</span></b></div>
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_pv5.jpg" alt="PV5" loading="lazy"><b>PV5</b></div>
+      <div class="logo-tile"><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/vehicles/vehicle_k4_cl4.jpg" alt="K4" loading="lazy"><b><span class="lang-ko">K4(멕시코)</span><span class="lang-zh">K4（墨西哥）</span></b></div>
+    </div>
+  </section>
+
+  <!-- 7. 인증 & 특허 -->
+  <section>
+    <div class="kicker fade-up">Quality &amp; Certification</div>
+    <h2 class="fade-up"><span class="lang-ko">인증과 특허로 설명되는<br>지속 가능한 제조 경쟁력</span><span class="lang-zh">以认证与专利诠释的<br>可持续制造竞争力</span></h2>
+    <div class="cert-grid fade-up">
+      <figure><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/image38.png" alt="GRS" loading="lazy"><figcaption><span class="lang-ko">GRS 인증</span><span class="lang-zh">GRS 认证</span></figcaption></figure>
+      <figure><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/image39.png" alt="Patent" loading="lazy"><figcaption><span class="lang-ko">특허 제10-2682641호</span><span class="lang-zh">专利 第10-2682641号</span></figcaption></figure>
+      <figure><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/image40.jpg" alt="IATF 16949" loading="lazy"><figcaption>IATF 16949</figcaption></figure>
+      <figure><img src="https://koyarkr-kr.github.io/evsch-company-intro/assets/image41.jpg" alt="ISO 14001" loading="lazy"><figcaption>ISO 14001</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 8. 핵심 강점 -->
+  <section>
+    <div class="kicker fade-up">Core Strengths</div>
+    <h2 class="fade-up"><span class="lang-ko">EVSCH가 쌓아온<br>자동차 내장재 <span class="mint">제조 경쟁력</span></span><span class="lang-zh">EVSCH 积累的<br>汽车内饰材料 <span class="mint">制造竞争力</span></span></h2>
+    <div class="grid fade-up">
+      <div class="metric"><strong class="sm">Production Base</strong><span><span class="lang-ko">압출·부직포·프레스 생산 기반</span><span class="lang-zh">挤出·无纺布·冲压生产基础</span></span></div>
+      <div class="metric"><strong class="sm">EV-Ready</strong><span><span class="lang-ko">전기차량용 트렁크 내장재 특허</span><span class="lang-zh">电动汽车后备厢内饰专利</span></span></div>
+      <div class="metric"><strong class="sm">Eco-cert</strong><span><span class="lang-ko">GRS 인증 재활용 소재 대응</span><span class="lang-zh">GRS认证可回收材料应对</span></span></div>
+      <div class="metric"><strong class="sm">OEM Network</strong><span><span class="lang-ko">완성차 부품 공급망 대응 경험</span><span class="lang-zh">整车零部件供应链经验</span></span></div>
+    </div>
+  </section>
+
+  <!-- 9. Thank You -->
+  <section class="thankyou">
+    <div class="kicker fade-up">Thank You</div>
+    <h1 class="fade-up">EVSCH<br>Appreciates Your<br>Partnership</h1>
+    <p class="lead fade-up"><span class="lang-ko">자동차 내장부품 전문기업 ㈜이브이쉬</span><span class="lang-zh">汽车内饰部件专业企业 EVSCH</span></p>
+    <div class="address fade-up">
+      <span class="lang-ko">충북 진천군 백곡면 백곡로 511-28<br>대표이사 조승회</span>
+      <span class="lang-zh">忠清北道镇川郡白谷面白谷路 511-28<br>董事长 Cho Seung Hwe</span>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // 언어 전환
+  function setLang(lang){
+    document.documentElement.dataset.lang=lang;
+    document.documentElement.lang=(lang==='zh'?'zh-CN':'ko');
+    document.getElementById('btn-ko').classList.toggle('on',lang==='ko');
+    document.getElementById('btn-zh').classList.toggle('on',lang==='zh');
+    document.title=(lang==='zh'?'EVSCH · 公司简介':'EVSCH · ㈜이브이쉬 회사소개서');
+  }
+
+  // 숫자 카운터
+  function animateCounters(els){
+    const lang=document.documentElement.dataset.lang;
+    els.forEach(el=>{
+      const target=parseFloat(el.dataset.count);
+      const suffix=(lang==='zh'?el.dataset.suffixZh:el.dataset.suffixKo)||'';
+      let start=null;const dur=1000;
+      function step(ts){
+        if(!start)start=ts;
+        const p=Math.min((ts-start)/dur,1);
+        const eased=1-Math.pow(1-p,3);
+        el.textContent=Math.round(target*eased)+suffix;
+        if(p<1)requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  // 스크롤 등장 애니메이션
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        const nums=entry.target.querySelectorAll('.num');
+        if(nums.length)setTimeout(()=>animateCounters(nums),200);
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15});
+
+  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
