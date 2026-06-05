@@ -91,8 +91,7 @@
   .photo-strip .frame{aspect-ratio:4/3}
   /* 제조시스템: 좌우 하단 정렬 */
   .split.ms{align-items:stretch}
-  .split.ms .photo-strip{height:100%;grid-template-rows:1fr 1fr}
-  .split.ms .photo-strip .frame{aspect-ratio:auto;height:100%;min-height:0}
+  .split.ms .facility-frame{height:100%;min-height:0;max-height:72vh}
 
   /* ===== 타임라인 ===== */
   .timeline{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid rgba(255,255,255,.4)}
@@ -248,7 +247,7 @@
           <div class="metric"><strong class="sm">150~300t</strong><span><span class="lang-ko">프레스 라인별 성형 능력</span><span class="lang-zh">各冲压线成型能力</span></span></div>
         </div>
       </div>
-      <div class="frame large-photo reveal r5" style="height:100%;min-height:320px">
+      <div class="frame facility-frame reveal r5">
         <img src="assets/facility.png" alt="설비사진" loading="lazy">
       </div>
     </div>
