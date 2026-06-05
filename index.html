@@ -152,6 +152,16 @@
   .logo-fix::before{content:"";width:30px;height:5px;background:var(--gold);display:inline-block}
   .hint{position:fixed;bottom:34px;right:34px;z-index:6;color:var(--muted);font-size:13px}
 
+  @media(max-width:1400px){
+    .slide{padding:5vh 6vw}
+    h1{font-size:clamp(32px,5vw,68px)}
+    h2{font-size:clamp(24px,3.4vw,44px)}
+    .lead{font-size:clamp(14px,1.4vw,18px)}
+    .list{font-size:clamp(14px,1.5vw,18px)}
+    .metric{min-height:110px;padding:20px 18px}
+    .metric strong{font-size:clamp(22px,3vw,40px)}
+    .certs figure{height:280px}
+  }
   @media(max-width:860px){
     .grid,.timeline,.process,.logos,.certs{grid-template-columns:repeat(2,1fr)}
     .split{grid-template-columns:1fr;gap:24px}
@@ -206,7 +216,7 @@
         <div class="list reveal r4">
           <div><span class="lang-ko">현대·기아 주요 차종 납품 이력 기반의 사업 신뢰도</span><span class="lang-zh">基于现代·起亚主要车型供货业绩的业务信赖度</span></div>
           <div><span class="lang-ko">IATF 16949, ISO 14001, GRS로 검증된 품질·환경 관리 체계</span><span class="lang-zh">通过 IATF 16949、ISO 14001、GRS 验证的质量·环境管理体系</span></div>
-          <div><span class="lang-ko">접착제 미사용, 경량, 흡음, 재활용 가능 소재를 활용한 제품 차별성</span><span class="lang-zh">采用无胶粘剂、轻量、吸音、可回收材料的产品差异化</span></div>
+          <div><span class="lang-ko">접착제 미사용·경량·흡음·재활용 소재 활용을 통한 제품 차별성</span><span class="lang-zh">采用无胶粘剂、轻量、吸音、可回收材料的产品差异化</span></div>
         </div>
       </div>
       <div class="frame large-photo reveal r5">
